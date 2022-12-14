@@ -30,7 +30,7 @@ metadata:
     - url: https://example.com/help
       title: Support
       icon: help
-    - url: https://example.com/web
+    - url: https://app.harness.io/ng/#/account/BKB_Vic2RbWnsMSUAWTgXw/home/orgs/default/projects/GitOps/details
       title: Website
       icon: web
     - url: https://example.com/alert
