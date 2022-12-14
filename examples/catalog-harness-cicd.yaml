@@ -1,16 +1,18 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: demo
-  description: demo
+  name: guestbook
+  description: guestbook
   annotations:
     # mandatory annotation
-    harness.io/project-url: <harness_project_url>
+    harness.io/project-url: https://app.harness.io/ng/#/account/BKB_Vic2RbWnsMSUAWTgXw/home/orgs/default/projects/GitOps/details
     # optional annotations, don't include this block if not needed. Add this if specific pipeline executions needs to be shown on the Plugin. When specified, latest pipeline execution details for configured pipelineIds(max 10) and configured serviceId will be shown.
-    harness.io/ci-pipelineIds: <pipelineId1,pipelineId2,pipelineId3 etc>
-    harness.io/cd-serviceId: <serviceId>
+    harness.io/ci-pipelineIds: guestbook
+    harness.io/cd-serviceId: guestbook
   tags:
-    - java
+    - guestbook
+    - gitops
+    - applicationset
 
   links:
     - url: https://example.com/user
@@ -36,5 +38,5 @@ metadata:
       icon: alert
 spec:
   type: service
-  lifecycle: experimental
-  owner: team-a
+  lifecycle: Production
+  owner: Martin Ansong
