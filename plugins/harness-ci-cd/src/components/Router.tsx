@@ -23,7 +23,12 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { MissingAnnotationEmptyState } from '@backstage/core-components';
 /** @public */
 export const isHarnessCiCdAvailable = (entity: Entity) =>
-  Boolean(entity.metadata.annotations?.['harness.io/project-url']);
+  Boolean(entity.metadata.annotations?.['harness.io/project-url']) ||
+  Boolean(entity.metadata.annotations?.['harness.io/project-url-qa']) ||
+  Boolean(entity.metadata.annotations?.['harness.io/project-url-stress']) ||
+  Boolean(entity.metadata.annotations?.['harness.io/project-url-stage']) ||
+  Boolean(entity.metadata.annotations?.['harness.io/pipelines']) ||
+  Boolean(entity.metadata.annotations?.['harness.io/services']);
 
 /** @public */
 

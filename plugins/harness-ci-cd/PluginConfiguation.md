@@ -1,13 +1,15 @@
 # Conifgurations for HARNESS-CI/CD Plguin
 
-## harness.io/project-url configuration:
+## harness.io/pipelines configuration
 
-![Project URL](./src/assets/harness_project_url.png)
+![Harness Admin](./src/assets/harness_idp_admin.png)
 
-## harness.io/ci-pipelineIds configuration:
+![Harness Pipeline](./src/assets/harness-pipeline.png)
 
-![PipelineID](./src/assets/pipelineIds.png)
+![Harness Pipeline URL](./src/assets/harness-pipeline-url.png)
 
-## harness.io/cd-serviceId configuration:
+## harness.io/services configuration
 
-![ServiceID](./src/assets/serviceId.png)
+![Harness Service](./src/assets/harness-service.png)
+
+![Harness Service URL](./src/assets/harness-service-url.png)

@@ -6,11 +6,16 @@ Welcome to the Harness NextGen CI/CD plugin for Backstage!
 
 ## Screenshots
 
+<img src="./src/assets/harness-new-annotation.png">
 <img src="./src/assets/ci-executions.png" />
 <img src="./src/assets/cd-executions.png" />
 <img src="./src/assets/ci-cd-executions.png" />
 
 ## Getting started
+
+We have video tutorial for the plugin.
+
+[![Watch here](http://img.youtube.com/vi/XDNdInYwiuw/0.jpg)](http://www.youtube.com/watch?v=XDNdInYwiuw)
 
 ## Setup steps
 
@@ -33,14 +38,18 @@ For testing purposes, you can also clone this repository to try out the plugin. 
 
 proxy:
   # ... existing proxy settings
-  '/harness':
+  '/harness/prod':
     target: 'https://app.harness.io/'
     headers:
       'x-api-key': '<YOUR PAT/SAT>'
 # ...
 ```
 
-Note: Plugin uses token configured here to make Harness API calls. Make sure this token has the necessary permissions.
+Notes:
+
+- Plugin uses token configured here to make Harness API calls. Make sure the user creating this API token has necessary permissions, which include `project view` permission along with `pipeline view` and `execute` permissions and same applies for service accounts as well it must have a role assigned that has the roles with adequate permissions as described before.
+
+- Set the value of target to your on-prem URL if you are using the Harness on-prem offering
 
 3. Inside your Backstage's `EntityPage.tsx`, update the `cicdContent` component to render `<EntityHarnessCiCdContent />` whenever the service is using Harness CI/CD. Something like this -
 
@@ -89,7 +98,33 @@ const serviceEntityPage = (
 
 </details>
 
-4. Add required harness specific annotations to your software component's respective `catalog-info.yaml` file. Here is an example: https://github.com/harness/backstage-plugins/blob/main/examples/catalog-harness-cicd.yaml
+4. Add required harness specific annotations to your software component's respective `catalog-info.yaml` file.
+
+Here is an example: [catalog-info-new.yaml](../../examples/catalog-harness-cicd-new.yaml)
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  # ...
+  annotations:
+    # optional annotation
+    harness.io/pipelines: |
+      labelA: <harness_pipeline_url>
+      labelB: <harness_pipeline_url>
+    # here labelA / labelB denotes the value you will see in dropdown in execution list. Refer screentshot 1
+    # optional annotation
+    harness.io/services: |
+      labelA: <harness_service_url>
+      labelB: <harness_service_url>
+spec:
+  type: service
+  # ...
+```
+
+#### Old Annotation
+
+Here is an example: https://github.com/harness/backstage-plugins/blob/main/examples/catalog-harness-cicd.yaml
 
 ```yaml
 apiVersion: backstage.io/v1alpha1
@@ -108,6 +143,7 @@ spec:
   # ...
 ```
 
+Note: If new annotation is present then old annotation will be ignored for that particular catalog.  
 Note: Refer to [this](./PluginConfiguation.md) page on how to get these values from your Harness account.
 
 By default, the plugin will take all the pipelines inside the configured Harness project and show their executions. However, if your service has quiet a few pipelines, you can additionally configure the pipelines as well as associated services to show those specific execution details for the display.

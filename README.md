@@ -21,6 +21,11 @@ Check out the plugin specific installation instructions.
 | Harness Module                                                                                                                                                                                                                                                                                         | Description                                            | Documentation                                            |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------ | -------------------------------------------------------- |
 | [<img align="center" src="./docs/assets/CI%20logo.png" alt="Harness CI logo" width="20" /> CI](https://harness.io/products/continuous-integration) and [<img align="center" src="./docs/assets/CD%20logo.png" alt="Harness CD logo" width="20" /> CD](https://harness.io/products/continuous-delivery) | View builds and pipeline executions for your services. | 📘 [Installation instructions](./plugins/harness-ci-cd/) |
+| [<img align="center" src="./docs/assets/Feature%20Flags%20logo.png" alt="Feature flags logo" width="20" /> Feature Flags](https://harness.io/products/feature-flags) | View list of Feature Flags | 📘 [Installation instructions](./plugins/harness-feature-flags/) |
+[<img align="center" src="./docs/assets/Chaos%20logo.png" alt="Chaos engineering logo" width="20" /> Chaos Engineering](https://harness.io/products/chaos-engineering) | View list of Chaos Experiments | 📘 [Installation instructions](./plugins/harness-chaos/) |
+[<img align="center" src="./docs/assets/SRM%20logo.png" alt="SRM logo" width="20" /> Service Reliability Management](https://www.harness.io/products/service-reliability-management) | Tracks the defined SLOs and Error Budgets | 📘 [Installation instructions](./plugins/harness-srm/) |
+[<img align="center" src="./docs/assets/iac-logo.png" alt="IACM logo" width="20" /> Infrastructure as Code Management](https://www.harness.io/products/infrastructure-as-code-management) | Overview of all the resources provisioned | 📘 [Installation instructions](./plugins/harness-iacm/) |
+[<img align="center" src="./docs/assets/Cloud%20Cost%20logo.png" alt="CCM logo" width="20" /> Cloud Cost Management](https://www.harness.io/products/infrastructure-as-code-management) | Manage and Optimize cloud costs | 📘 [Installation instructions](./plugins/harness-ccm/) |
 
 ## Contributor License Agreement
 
@@ -41,11 +46,13 @@ If you would like to chat with us, join the [Harness Community Slack channel](ht
 | Harness Module                                                                                                                                                                                                                                                                                         | Description                                               | Status         |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- | -------------- |
 | [<img align="center" src="./docs/assets/CI%20logo.png" alt="Harness CI logo" width="20" /> CI](https://harness.io/products/continuous-integration) and [<img align="center" src="./docs/assets/CD%20logo.png" alt="Harness CD logo" width="20" /> CD](https://harness.io/products/continuous-delivery) | View builds and pipeline executions for your services.    | ✅ Launched    |
-| [<img align="center" src="./docs/assets/Cloud%20Cost%20logo.png" alt="Cloud cost management logo" width="20" /> Cloud Cost Management](https://harness.io/products/cloud-cost)                                                                                                                         | Manage and Optimize cloud costs                           | ⏳ Coming soon |
-| [<img align="center" src="./docs/assets/Feature%20Flags%20logo.png" alt="Feature flags logo" width="20" /> Feature Flags](https://harness.io/products/feature-flags)                                                                                                                                   | Manage feature flags                                      | ⏳ Coming soon |
-| [<img align="center" src="./docs/assets/Chaos%20logo.png" alt="Chaos engineering logo" width="20" /> Chaos Engineering](https://harness.io/products/chaos-engineering)                                                                                                                                 | Improve application resiliency and reduce costly downtime | ⏳ Coming soon |
+| [<img align="center" src="./docs/assets/Cloud%20Cost%20logo.png" alt="Cloud cost management logo" width="20" /> Cloud Cost Management](https://harness.io/products/cloud-cost)                                                                                                                         | Manage and Optimize cloud costs                           | ✅ Launched |
+| [<img align="center" src="./docs/assets/Feature%20Flags%20logo.png" alt="Feature flags logo" width="20" /> Feature Flags](https://harness.io/products/feature-flags)                                                                                                                                   | View list of Feature Flags set in the project.                                       | ✅ Launched |
+| [<img align="center" src="./docs/assets/Chaos%20logo.png" alt="Chaos engineering logo" width="20" /> Chaos Engineering](https://harness.io/products/chaos-engineering)                                                                                                                                 | Improve application resiliency and reduce costly downtime  | ✅ Launched |
 | [<img align="center" src="./docs/assets/STO%20logo.png" alt="STO logo" width="20" /> Security Testing Orchestration](https://harness.io/products/security-testing-orchestration)                                                                                                                       | Shift-left application security                           | ⏳ Coming soon |
-| [<img align="center" src="./docs/assets/SRM%20logo.png" alt="SRM logo" width="20" /> Service Reliability Management](https://harness.io/products/service-reliability-management)                                                                                                                       | SLO-driven software delivery                              | ⏳ Coming soon |
+| [<img align="center" src="./docs/assets/SRM%20logo.png" alt="SRM logo" width="20" /> Service Reliability Management](https://harness.io/products/service-reliability-management)                                                                                                                       | SLO-driven software delivery                              | ✅ Launched |
+| [<img align="center" src="./docs/assets/SEI%20logo.png" alt="SEI logo" width="20" /> Software Engineering Insights](https://www.harness.io/products/software-engineering-insights)                                                                                                                       | Improve Engineering Results with Data-Driven Decisions delivery                              | ⏳ Coming soon |
+
 
 ## Code of Conduct
 
@@ -61,4 +68,10 @@ Please report sensitive security issues via [harness.io/security](https://harnes
 
 ### License
 
-Apache License 2.0. See [COPYING](LICENSE) for more information.
+Apache License 2.0. See [COPYING](LICENSE.md) for more information.
+
+### Issues
+ If you encounter an issue with [node gyp](https://www.npmjs.com/package/node-gyp), the following command on mac resolved it for me
+ ```
+    brew install python-setuptools
+```

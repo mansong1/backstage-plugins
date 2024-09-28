@@ -25,6 +25,8 @@ import {
   isKind,
   hasCatalogProcessingErrors,
   isOrphan,
+  hasRelationWarnings,
+  EntityRelationWarning,
 } from '@backstage/plugin-catalog';
 import {
   isGithubActionsAvailable,
@@ -60,6 +62,32 @@ import {
   isHarnessCiCdAvailable,
 } from '@harnessio/backstage-plugin-ci-cd';
 
+import {
+  isHarnessFeatureFlagAvailable,
+  EntityHarnessFeatureFlagContent,
+} from '@harnessio/backstage-plugin-feature-flags';
+
+import {
+  EntityHarnessSrmContent,
+  isHarnessSRMAvailable,
+} from '@harnessio/backstage-plugin-harness-srm';
+
+import {
+  EntityHarnessChaosContent,
+  isHarnessChaosAvailable,
+} from '@harnessio/backstage-plugin-harness-chaos';
+
+import {
+  EntityIacmContent,
+  isHarnessIacmAvailable,
+} from '@harnessio/backstage-plugin-harness-iacm';
+
+import {
+  isHarnessCcmAvailable,
+  EntityCcmContent,
+  EntityCcmOverviewCard,
+} from '@harnessio/backstage-plugin-harness-ccm';
+
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -71,6 +99,7 @@ const techdocsContent = (
 const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
   // You can for example enforce that all components of type 'service' should use GitHubActions
+
   <EntitySwitch>
     <EntitySwitch.Case if={isHarnessCiCdAvailable}>
       <EntityHarnessCiCdContent />
@@ -98,13 +127,44 @@ const cicdContent = (
     </EntitySwitch.Case>
   </EntitySwitch>
 );
+const featureFlagList = (
+  <EntitySwitch>
+    <EntitySwitch.Case if={isHarnessFeatureFlagAvailable}>
+      <EntityHarnessFeatureFlagContent />
+    </EntitySwitch.Case>
 
+    <EntitySwitch.Case>
+      <EmptyState
+        title="No Feature Flags available for this entity"
+        missing="info"
+        description="You need to add an annotation to your component if you want to enable Feature Flags for it. You can read more about annotations in Backstage by clicking the button below."
+        action={
+          <Button
+            variant="contained"
+            color="primary"
+            href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
+          >
+            Read more
+          </Button>
+        }
+      />
+    </EntitySwitch.Case>
+  </EntitySwitch>
+);
 const entityWarningContent = (
   <>
     <EntitySwitch>
       <EntitySwitch.Case if={isOrphan}>
         <Grid item xs={12}>
           <EntityOrphanWarning />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+
+    <EntitySwitch>
+      <EntitySwitch.Case if={hasRelationWarnings}>
+        <Grid item xs={12}>
+          <EntityRelationWarning />
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
@@ -119,6 +179,88 @@ const entityWarningContent = (
   </>
 );
 
+const srmContent = (
+  <EntitySwitch>
+    <EntitySwitch.Case if={isHarnessSRMAvailable}>
+      <EntityHarnessSrmContent />
+    </EntitySwitch.Case>
+
+    <EntitySwitch.Case>
+      <EmptyState
+        title="No SRM available for this entity"
+        missing="info"
+        description="You need to add an annotation to your component if you want to enable SRM for it. You can read more about annotations in Backstage by clicking the button below."
+        action={
+          <Button
+            variant="contained"
+            color="primary"
+            href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
+          >
+            Read more
+          </Button>
+        }
+      />
+    </EntitySwitch.Case>
+  </EntitySwitch>
+);
+
+const chaosContent = (
+  <EntitySwitch>
+    <EntitySwitch.Case if={isHarnessChaosAvailable}>
+      <EntityHarnessChaosContent />
+    </EntitySwitch.Case>
+
+    <EntitySwitch.Case>
+      <EmptyState
+        title="No Chaos data available for this entity"
+        missing="info"
+        description="You need to add an annotation to your component if you want to enable Chaos for it. You can read more about annotations in Backstage by clicking the button below."
+        action={
+          <Button
+            variant="contained"
+            color="primary"
+            href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
+          >
+            Read more
+          </Button>
+        }
+      />
+    </EntitySwitch.Case>
+  </EntitySwitch>
+);
+
+const ccmContent = (
+  <EntitySwitch>
+    <EntitySwitch.Case if={isHarnessCcmAvailable}>
+      <EntityCcmContent />
+    </EntitySwitch.Case>
+
+    <EntitySwitch.Case>
+      <EmptyState
+        title="No Cloud Cost Management data available for this entity"
+        missing="info"
+        description="You need to add a harness.io/perspective-url annotation to your component if you want to enable Cloud Cost Management for it. You can read more about annotations in Backstage by clicking the button below."
+        action={
+          <Button
+            variant="contained"
+            color="primary"
+            href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
+          >
+            Read more
+          </Button>
+        }
+      />
+    </EntitySwitch.Case>
+  </EntitySwitch>
+);
+
+const iacmContent = (
+  <EntitySwitch>
+    <EntitySwitch.Case if={isHarnessIacmAvailable}>
+      <EntityIacmContent />
+    </EntitySwitch.Case>
+  </EntitySwitch>
+);
 const overviewContent = (
   <Grid container spacing={3} alignItems="stretch">
     {entityWarningContent}
@@ -135,6 +277,9 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
+    <Grid item md={6} xs={12}>
+      <EntityCcmOverviewCard variant="gridItem" />
+    </Grid>
   </Grid>
 );
 
@@ -146,6 +291,24 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
       {cicdContent}
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/harness-iacm" title="Resources">
+      {iacmContent}
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/srm" title="Service Reliability">
+      {srmContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/chaos" title="Chaos Engineering">
+      {chaosContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/ccm" title="Cloud Cost Management">
+      {ccmContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/feature-flag" title="Feature Flags">
+      {featureFlagList}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/api" title="API">
@@ -184,6 +347,21 @@ const websiteEntityPage = (
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
       {cicdContent}
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/harness-iacm" title="IACM">
+      <EntityHarnessFeatureFlagContent />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/feature-flag" title="Feature Flags">
+      {featureFlagList}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/chaos" title="Chaos Engineering">
+      {chaosContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/ccm" title="Cloud Cost Management">
+      {ccmContent}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/dependencies" title="Dependencies">
@@ -298,8 +476,11 @@ const groupPage = (
         <Grid item xs={12} md={6}>
           <EntityOwnershipCard variant="gridItem" />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <EntityMembersListCard />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <EntityLinksCard />
         </Grid>
       </Grid>
     </EntityLayout.Route>
